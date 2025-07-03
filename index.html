@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chick Feeder</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="chick-logo">
+        <img src="assets/icons/chicken.svg" alt="" />
+        <p>Chick Feeder</p>
+      </div>
+
+      <div>
+        <img src="assets/icons/moon.svg" alt="" />
+      </div>
+    </header>
+
+    <section class="status-container">
+      <div class="card c1">
+        <div class="circle-container">
+          <div class="green-circle"><p class="font1">75%</p></div>
+        </div>
+        <img src="assets/icons/water.svg" alt="" />
+        <p class="font2">Water level</p>
+      </div>
+
+      <div class="card c2">
+        <img src="assets/icons/battery.svg" alt="" />
+        <p class="font1">85%</p>
+        <div class="battery-container"><div class="battery"></div></div>
+        <p class="font2">Battery</p>
+      </div>
+
+      <div class="card c3">
+        <img src="assets/icons/weight.svg" alt="" />
+        <p class="font1">12.5 kg</p>
+        <p class="font2">Feed weight</p>
+      </div>
+
+      <div class="card c3">
+        <img class="sun" src="assets/icons/sun.svg" alt="" />
+        <p class="font1">ON</p>
+        <p class="font2">Light Status</p>
+      </div>
+    </section>
+
+    <section class="controls">
+      <p class="font1">Controls</p>
+      <div class="control-container">
+        <div class="controlbox cb1">
+          <img src="assets/icons/chicken-white.svg" alt="assets/icons/chicken-white.svg" />
+          <p>Dispense Feed</p>
+          <button class="off">Off</button>
+        </div>
+
+        <div class="controlbox cb2">
+          <img src="assets/icons/water pump.svg" alt="" />
+          <p>Water Pump</p>
+          <button class="off">Off</button>
+        </div>
+
+        <div class="controlbox cb3">
+          <img src="assets/icons/light.svg" alt="" />
+          <p>Light Toggle</p>
+          <button class="off">Off</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="schedulecontainer">
+      <div class="schedulebox">
+        <p class="font1">Light Schedule</p>
+        <div class="calender">
+          <img src="assets/icons/calender.svg" alt="" />
+          <p>Edit</p>
+        </div>
+      </div>
+
+      <div class="time-container">
+        <div class="on-time">
+          <div class="clock">
+            <img class="cl" src="assets/icons/time.svg" alt="" />
+            <p class="font3">ON Time</p>
+          </div>
+          <p>6:00 AM</p>
+        </div>
+
+        <div class="line-container"><div class="line"></div></div>
+
+        <div class="on-time">
+          <div class="clock">
+            <img src="assets/icons/moon.svg" alt="" />
+            <p class="font3">OFF Time</p>
+          </div>
+          <p>6:00 AM</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="alerts">
+      <p class="font1">Active Alerts</p>
+
+      <div class="alert-box ab1">
+        <div><img src="assets/icons/warning.svg" alt="" /></div>
+        <div>
+          <p class="big-pink">Low Battery Warning</p>
+          <p class="normal-pink">Battery level below 20%</p>
+        </div>
+      </div>
+
+      <div class="alert-box ab2">
+        <div><img src="assets/icons/warning.svg" alt="" /></div>
+        <div>
+          <p class="big-yellow">Low Water Level</p>
+          <p class="normal-yellow">Water level below 15%</p>
+        </div>
+      </div>
+    </section>
+
+    <script src="script.js"></script>
+  </body>
+</html>
