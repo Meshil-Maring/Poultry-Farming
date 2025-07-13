@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chick Feeder</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css?v=11" />
   </head>
-  <body>
+  <body style="background-color: white">
     <header>
       <div class="chick-logo">
         <img src="assets/icons/chicken.svg" alt="" />
@@ -21,7 +21,9 @@
     <section class="status-container">
       <div class="card c1">
         <div class="circle-container">
-          <div class="green-circle"><p class="font1">75%</p></div>
+          <div class="green-circle">
+            <p id="waterLevel" class="">0 <em>%</em></p>
+          </div>
         </div>
         <img src="assets/icons/water.svg" alt="" />
         <p class="font2">Water level</p>
@@ -29,7 +31,8 @@
 
       <div class="card c2">
         <img src="assets/icons/battery.svg" alt="" />
-        <p class="font1">85%</p>
+        <p class="font1">85 <em>%</em></p>
+
         <div class="battery-container"><div class="battery"></div></div>
         <p class="font2">Battery</p>
       </div>
@@ -40,9 +43,9 @@
         <p class="font2">Feed weight</p>
       </div>
 
-      <div class="card c3">
+      <div id="lightStatusContainer" class="card c3">
         <img class="sun" src="assets/icons/sun.svg" alt="" />
-        <p class="font1">ON</p>
+        <p id="lightStatusText">OFF</p>
         <p class="font2">Light Status</p>
       </div>
     </section>
@@ -51,7 +54,10 @@
       <p class="font1">Controls</p>
       <div class="control-container">
         <div class="controlbox cb1">
-          <img src="assets/icons/chicken-white.svg" alt="assets/icons/chicken-white.svg" />
+          <img
+            src="assets/icons/chicken-white.svg"
+            alt="assets/icons/chicken-white.svg"
+          />
           <p>Dispense Feed</p>
           <button class="off">Off</button>
         </div>
@@ -62,11 +68,12 @@
           <button class="off">Off</button>
         </div>
 
-        <div class="controlbox cb3">
+        <!-- Toggle Button  -->
+        <button id="lightBtn" class="controlbox cb3">
           <img src="assets/icons/light.svg" alt="" />
           <p>Light Toggle</p>
-          <button class="off">Off</button>
-        </div>
+          <p id="lightStatus" class="off">Off</p>
+        </button>
       </div>
     </section>
 
@@ -120,6 +127,8 @@
       </div>
     </section>
 
-    <script src="script.js"></script>
+    <p>Javascript : 8</p>
+
+    <script src="script.js?v=11"></script>
   </body>
 </html>
