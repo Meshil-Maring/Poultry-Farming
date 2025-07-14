@@ -1,27 +1,46 @@
+#include <Arduino.h>
+#include <AccelStepper.h>
 #include "stepperMotor.h"
 
-// Define the stepper object here
-AccelStepper stepper(AccelStepper::HALF4WIRE, IN1, IN3, IN2, IN4);
+#define IN1 32
+#define IN2 33
+#define IN3 25
+#define IN4 26
 
-void setupStepperMotor() {
+AccelStepper stepper(AccelStepper::HALF4WIRE, IN1, IN3, IN2, IN4);
+long forwardTarget = 30000;
+long backwardTarget = 0;
+
+void setupStepperMotor()
+{
   stepper.setMaxSpeed(1000);
-  stepper.setAcceleration(500); // Optional: for smoother motion
+  stepper.setAcceleration(500);
 }
 
-void runStepperMotor() {
-  Serial.println("Stepper running");
+void startMoveForward()
+{
+  stepper.moveTo(forwardTarget);
+}
 
-  stepper.moveTo(30000);
-  while (stepper.distanceToGo() != 0) {
-    stepper.run();
-  }
+void startMoveBackward()
+{
+  stepper.moveTo(backwardTarget);
+}
 
-  delay(1000);
+void runMotor()
+{
+  stepper.run();
+}
 
-  stepper.moveTo(0);
-  while (stepper.distanceToGo() != 0) {
-    stepper.run();
-  }
+bool isMoveFinished()
+{
+  return stepper.distanceToGo() == 0;
+}
 
-  delay(1000);
+void stopMotors()
+{
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
 }
