@@ -3,6 +3,7 @@
 let lightOn = false;
 let waterOn = false;
 let feedOn = false;
+let cleanOn = false; // Added clean state
 
 const ws = new WebSocket(`ws://${location.host}/ws`);
 
@@ -26,9 +27,12 @@ function changeState(state, type) {
   } else if (type === "feed") {
     ws.send(nextState ? "FEED" : "STOP_FEED");
     feedOn = nextState;
+  } else if (type === "clean") {
+    ws.send(nextState ? "CLEAN" : "STOP_CLEAN");
+    cleanOn = nextState;
   }
 
-  // Update UI safely
+  // Update UI
   const statusEl = document.getElementById(`${type}Status`);
   const statusTextEl = document.getElementById(`${type}StatusText`);
   const statusContainerEl = document.getElementById(`${type}StatusContainer`);
@@ -47,9 +51,12 @@ document.getElementById("lightBtn").onclick = () =>
 document.getElementById("waterBtn").onclick = () =>
   changeState(waterOn, "water");
 document.getElementById("feedBtn").onclick = () => changeState(feedOn, "feed");
+document.getElementById("cleanBtn").onclick = () =>
+  changeState(cleanOn, "clean");
 
-// Listen for water level from sensor
+// WebSocket listener for sensor updates (example: water level)
 ws.onmessage = (event) => {
   const levelEl = document.getElementById("waterLvl");
+  // Uncomment if needed:
   // if (levelEl) levelEl.innerHTML = event.data + "%";
 };

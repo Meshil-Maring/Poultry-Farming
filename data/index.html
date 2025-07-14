@@ -12,10 +12,6 @@
         <img src="assets/icons/chicken.svg" alt="" />
         <p>Chick Feeder</p>
       </div>
-
-      <div>
-        <img src="assets/icons/moon.svg" alt="" />
-      </div>
     </header>
 
     <!-- Status Section -->
@@ -47,6 +43,13 @@
         <p class="font2">Feed Status</p>
       </div>
 
+      <!-- Cleaner Status Card -->
+      <div id="cleanStatusContainer" class="card c3">
+        <img src="assets/icons/dirty.svg" alt="" />
+        <p id="cleanStatusText">OFF</p>
+        <p class="font2">Cleaner Status</p>
+      </div>
+
       <!-- Light Status Card -->
       <div id="lightStatusContainer" class="card c4">
         <img class="sun" src="assets/icons/sun.svg" alt="" />
@@ -60,14 +63,14 @@
       <p class="font1">Controls</p>
       <div class="control-container">
         <!-- Feed Button -->
-        <div id="feedBtn" class="controlbox cb1">
+        <div id="feedBtn" class="controlbox cb3">
           <img src="assets/icons/chicken-white.svg" alt="" />
           <p>Dispense Feed</p>
           <p id="feedStatus" class="off">Off</p>
         </div>
 
         <!-- Water Button -->
-        <div id="waterBtn" class="controlbox cb2">
+        <div id="waterBtn" class="controlbox cb3">
           <img src="assets/icons/water pump.svg" alt="" />
           <p>Water Pump</p>
           <p id="waterStatus" class="off">Off</p>
@@ -78,6 +81,13 @@
           <img src="assets/icons/light.svg" alt="" />
           <p>Light Toggle</p>
           <p id="lightStatus" class="off">Off</p>
+        </div>
+
+        <!-- Cleaner Button -->
+        <div id="cleanBtn" class="controlbox cb3">
+          <img src="assets/icons/dirty-white.svg" alt="" />
+          <p>Cleaner</p>
+          <p id="cleanStatus" class="off">Off</p>
         </div>
       </div>
     </section>

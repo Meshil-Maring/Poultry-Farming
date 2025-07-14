@@ -3,10 +3,10 @@
 #include <AsyncTCP.h>
 #include <SPIFFS.h>
 #include "webserver.h"
+#include "servo_motor.h"
 
 #define LED_PIN 21
 #define WATER_PIN 19
-#define FEED_PIN 18
 
 AsyncWebServer server(80);
 AsyncWebSocket ws("/ws");
@@ -27,6 +27,7 @@ void onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client,
       msg += (char)data[i];
     Serial.println("Received: " + msg);
 
+    // Light Controller
     if (msg == "ON")
     {
       digitalWrite(LED_PIN, HIGH);
@@ -37,9 +38,10 @@ void onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client,
       digitalWrite(LED_PIN, LOW);
       ws.textAll("OFF");
     }
+
+    // Water pump controller
     else if (msg == "FILL")
     {
-      Serial.println("Start draning");
       digitalWrite(WATER_PIN, HIGH);
       ws.textAll("FILL");
     }
@@ -48,15 +50,15 @@ void onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client,
       digitalWrite(WATER_PIN, LOW);
       ws.textAll("DRAIN");
     }
+
+    // Dispense Feed controller
     else if (msg == "FEED")
     {
-      digitalWrite(FEED_PIN, HIGH);
-      ws.textAll("FEED");
+      setServoAngle(150);
     }
     else if (msg == "STOP_FEED")
     {
-      digitalWrite(FEED_PIN, LOW);
-      ws.textAll("STOP_FEED");
+      setServoAngle(0);
     }
   }
 }
@@ -65,7 +67,6 @@ void setupWebServer()
 {
   pinMode(LED_PIN, OUTPUT);
   pinMode(WATER_PIN, OUTPUT);
-  pinMode(FEED_PIN, OUTPUT);
   digitalWrite(LED_PIN, LOW);
 
   WiFi.softAP("ESP32-Hotspot", "12345678");
