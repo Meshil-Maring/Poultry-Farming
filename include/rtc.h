@@ -6,6 +6,6 @@
 extern RTC_DS3231 rtc;
 
 void rtc_init();
-void displayTimeOnScreen();  
+void displayTimeOnScreen();
 
 #endif

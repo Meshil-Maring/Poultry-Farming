@@ -288,3 +288,8 @@ header img {
   color: rgb(213, 97, 116);
   margin-top: 4px;
 }
+
+input[type="time"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

@@ -5,20 +5,25 @@
 
 RTC_DS3231 rtc;
 
-void rtc_init() {
-  Wire.begin(21, 19);  // SDA, SCL
-  if (!rtc.begin()) {
+void rtc_init()
+{
+  Wire.begin(21, 19); // SDA, SCL
+  if (!rtc.begin())
+  {
     Serial.println("Couldn't find RTC");
-    while (1);
+    while (1)
+      ;
   }
 
-  if (rtc.lostPower()) {
+  if (rtc.lostPower())
+  {
     Serial.println("RTC lost power, setting time!");
     rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
   }
 }
 
-void displayTimeOnScreen() {
+void displayTimeOnScreen()
+{
   DateTime now = rtc.now();
   char buffer[32];
 

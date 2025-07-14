@@ -92,33 +92,108 @@
       </div>
     </section>
 
-    <!-- Schedule Section -->
     <section class="schedulecontainer">
+      <!-- LIGHT SCHEDULE -->
       <div class="schedulebox">
         <p class="font1">Light Schedule</p>
-        <div class="calender">
-          <img src="assets/icons/calender.svg" alt="" />
+        <div class="calender" onclick="toggleEdit(this)">
+          <img src="assets/icons/calender.svg" alt="Edit" />
           <p>Edit</p>
         </div>
       </div>
-
       <div class="time-container">
         <div class="on-time">
           <div class="clock">
-            <img class="cl" src="assets/icons/time.svg" alt="" />
+            <img src="assets/icons/time.svg" alt="" />
             <p class="font3">ON Time</p>
           </div>
-          <p>6:00 AM</p>
+          <input type="time" id="lightOnTime" value="06:00" disabled />
         </div>
-
         <div class="line-container"><div class="line"></div></div>
-
         <div class="on-time">
           <div class="clock">
             <img src="assets/icons/moon.svg" alt="" />
             <p class="font3">OFF Time</p>
           </div>
-          <p>6:00 PM</p>
+          <input type="time" id="lightOffTime" value="18:00" disabled />
+        </div>
+      </div>
+
+      <!-- FEED SCHEDULE -->
+      <div class="schedulebox">
+        <p class="font1">Feeding Schedule</p>
+        <div class="calender" onclick="toggleEdit(this)">
+          <img src="assets/icons/calender.svg" alt="Edit" />
+          <p>Edit</p>
+        </div>
+      </div>
+      <div class="time-container">
+        <div class="on-time">
+          <div class="clock">
+            <img src="assets/icons/time.svg" alt="" />
+            <p class="font3">Feed Time</p>
+          </div>
+          <input type="time" id="feedStartTime" value="07:00" disabled />
+        </div>
+        <div class="line-container"><div class="line"></div></div>
+        <div class="on-time">
+          <div class="clock">
+            <img src="assets/icons/time.svg" alt="" />
+            <p class="font3">Feed Time</p>
+          </div>
+          <input id="feedStopTime" type="time" value="17:00" disabled />
+        </div>
+      </div>
+
+      <!-- WATER SCHEDULE -->
+      <div class="schedulebox">
+        <p class="font1">Water Schedule</p>
+        <div class="calender" onclick="toggleEdit(this)">
+          <img src="assets/icons/calender.svg" alt="Edit" />
+          <p>Edit</p>
+        </div>
+      </div>
+      <div class="time-container">
+        <div class="on-time">
+          <div class="clock">
+            <img src="assets/icons/time.svg" alt="" />
+            <p class="font3">Water ON</p>
+          </div>
+          <input type="time" id="waterOnTime" value="06:30" disabled />
+        </div>
+        <div class="line-container"><div class="line"></div></div>
+        <div class="on-time">
+          <div class="clock">
+            <img src="assets/icons/moon.svg" alt="" />
+            <p class="font3">Water OFF</p>
+          </div>
+          <input id="waterOffTime" type="time" value="06:45" disabled />
+        </div>
+      </div>
+
+      <!-- CLEANING SCHEDULE -->
+      <div class="schedulebox">
+        <p class="font1">Cleaning Schedule</p>
+        <div class="calender" onclick="toggleEdit(this)">
+          <img src="assets/icons/calender.svg" alt="Edit" />
+          <p>Edit</p>
+        </div>
+      </div>
+      <div class="time-container">
+        <div class="on-time">
+          <div class="clock">
+            <img src="assets/icons/time.svg" alt="" />
+            <p class="font3">Start</p>
+          </div>
+          <input id="cleanStartTime" type="time" value="15:00" disabled />
+        </div>
+        <div class="line-container"><div class="line"></div></div>
+        <div class="on-time">
+          <div class="clock">
+            <img src="assets/icons/moon.svg" alt="" />
+            <p class="font3">End</p>
+          </div>
+          <input id="cleanStopTime" type="time" value="15:15" disabled />
         </div>
       </div>
     </section>

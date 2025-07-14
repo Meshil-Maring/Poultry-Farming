@@ -45,7 +45,10 @@ function changeState(state, type) {
     statusContainerEl.style.backgroundImage = backgroundImage;
 }
 
+///////////////////////
 // Button click handlers
+///////////////////////
+
 document.getElementById("lightBtn").onclick = () =>
   changeState(lightOn, "light");
 document.getElementById("waterBtn").onclick = () =>
@@ -60,3 +63,81 @@ ws.onmessage = (event) => {
   // Uncomment if needed:
   // if (levelEl) levelEl.innerHTML = event.data + "%";
 };
+
+function toggleEdit(calenderElement) {
+  const scheduleBox = calenderElement.closest(".schedulebox");
+  const timeContainer = scheduleBox.nextElementSibling;
+
+  if (!timeContainer) return;
+
+  const inputs = timeContainer.querySelectorAll("input[type='time']");
+  inputs.forEach((input) => {
+    input.disabled = !input.disabled;
+  });
+
+  const text = calenderElement.querySelector("p");
+  if (text) {
+    text.textContent = inputs[0].disabled ? "Edit" : "Done";
+  }
+}
+
+//////////////////////////////
+// Automic working machine
+//////////////////////////////
+
+function timeToMinutes(timeStr) {
+  const [hour, minute] = timeStr.split(":").map(Number);
+  return hour * 60 + minute;
+}
+
+// Trigger only once per minute
+let lastCheckedMinute = -1;
+
+// Check schedule every 10 seconds
+setInterval(() => {
+  const now = new Date();
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+  if (currentMinutes === lastCheckedMinute) return;
+  lastCheckedMinute = currentMinutes;
+
+  // Light
+  const lightOnTime = document.getElementById("lightOnTime")?.value;
+  const lightOffTime = document.getElementById("lightOffTime")?.value;
+  if (lightOnTime && timeToMinutes(lightOnTime) === currentMinutes) {
+    changeState(false, "light"); // Turn ON
+  }
+  if (lightOffTime && timeToMinutes(lightOffTime) === currentMinutes) {
+    changeState(true, "light"); // Turn OFF
+  }
+
+  // Feed
+  const feedStart = document.getElementById("feedStartTime")?.value;
+  const feedStop = document.getElementById("feedStopTime")?.value;
+  if (feedStart && timeToMinutes(feedStart) === currentMinutes) {
+    changeState(false, "feed"); // FEED
+  }
+  if (feedStop && timeToMinutes(feedStop) === currentMinutes) {
+    changeState(true, "feed"); // STOP_FEED
+  }
+
+  // Water
+  const waterOn = document.getElementById("waterOnTime")?.value;
+  const waterOff = document.getElementById("waterOffTime")?.value;
+  if (waterOn && timeToMinutes(waterOn) === currentMinutes) {
+    changeState(false, "water"); // FILL
+  }
+  if (waterOff && timeToMinutes(waterOff) === currentMinutes) {
+    changeState(true, "water"); // DRAIN
+  }
+
+  // Clean
+  const cleanStart = document.getElementById("cleanStartTime")?.value;
+  const cleanStop = document.getElementById("cleanStopTime")?.value;
+  if (cleanStart && timeToMinutes(cleanStart) === currentMinutes) {
+    changeState(false, "clean"); // CLEAN
+  }
+  if (cleanStop && timeToMinutes(cleanStop) === currentMinutes) {
+    changeState(true, "clean"); // STOP_CLEAN
+  }
+}, 10000);
