@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chick Feeder</title>
-    <link rel="stylesheet" href="style.css?v=11" />
+    <link rel="stylesheet" href="style.css?v=14" />
   </head>
   <body style="background-color: white">
     <header>
@@ -18,65 +18,71 @@
       </div>
     </header>
 
+    <!-- Status Section -->
     <section class="status-container">
-      <div class="card c1">
+      <!-- Water Status Card -->
+      <div id="waterStatusContainer" class="card c1">
         <div class="circle-container">
           <div class="green-circle">
-            <p id="waterLevel" class="">0 <em>%</em></p>
+            <p id="waterLevel">0 <em>%</em></p>
           </div>
         </div>
         <img src="assets/icons/water.svg" alt="" />
-        <p class="font2">Water level</p>
+        <p id="waterStatusText">OFF</p>
+        <p class="font2">Water Status</p>
       </div>
 
+      <!-- Battery -->
       <div class="card c2">
         <img src="assets/icons/battery.svg" alt="" />
         <p class="font1">85 <em>%</em></p>
-
         <div class="battery-container"><div class="battery"></div></div>
         <p class="font2">Battery</p>
       </div>
 
-      <div class="card c3">
-        <img src="assets/icons/weight.svg" alt="" />
-        <p class="font1">12.5 kg</p>
-        <p class="font2">Feed weight</p>
+      <!-- Feed Status Card -->
+      <div id="feedStatusContainer" class="card c3">
+        <img src="assets/icons/chicken.svg" alt="" />
+        <p id="feedStatusText">OFF</p>
+        <p class="font2">Feed Status</p>
       </div>
 
-      <div id="lightStatusContainer" class="card c3">
+      <!-- Light Status Card -->
+      <div id="lightStatusContainer" class="card c4">
         <img class="sun" src="assets/icons/sun.svg" alt="" />
         <p id="lightStatusText">OFF</p>
         <p class="font2">Light Status</p>
       </div>
     </section>
 
+    <!-- Controls Section -->
     <section class="controls">
       <p class="font1">Controls</p>
       <div class="control-container">
-        <div class="controlbox cb1">
-          <img
-            src="assets/icons/chicken-white.svg"
-            alt="assets/icons/chicken-white.svg"
-          />
+        <!-- Feed Button -->
+        <div id="feedBtn" class="controlbox cb1">
+          <img src="assets/icons/chicken-white.svg" alt="" />
           <p>Dispense Feed</p>
-          <button class="off">Off</button>
+          <p id="feedStatus" class="off">Off</p>
         </div>
 
-        <div class="controlbox cb2">
+        <!-- Water Button -->
+        <div id="waterBtn" class="controlbox cb2">
           <img src="assets/icons/water pump.svg" alt="" />
           <p>Water Pump</p>
-          <button class="off">Off</button>
+          <p id="waterStatus" class="off">Off</p>
         </div>
 
-        <!-- Toggle Button  -->
-        <button id="lightBtn" class="controlbox cb3">
+        <!-- Light Button -->
+        <div id="lightBtn" class="controlbox cb3">
           <img src="assets/icons/light.svg" alt="" />
           <p>Light Toggle</p>
           <p id="lightStatus" class="off">Off</p>
-        </button>
+        </div>
       </div>
     </section>
 
+    <!-- Schedule Section -->
     <section class="schedulecontainer">
       <div class="schedulebox">
         <p class="font1">Light Schedule</p>
@@ -102,11 +108,12 @@
             <img src="assets/icons/moon.svg" alt="" />
             <p class="font3">OFF Time</p>
           </div>
-          <p>6:00 AM</p>
+          <p>6:00 PM</p>
         </div>
       </div>
     </section>
 
+    <!-- Alerts Section -->
     <section class="alerts">
       <p class="font1">Active Alerts</p>
 
@@ -127,8 +134,10 @@
       </div>
     </section>
 
-    <p>Javascript : 8</p>
+    <!-- Version Info -->
+    <p>JavaScript: 14</p>
 
-    <script src="script.js?v=11"></script>
+    <!-- JavaScript File -->
+    <script src="script.js?v=14"></script>
   </body>
 </html>

@@ -1,9 +1,11 @@
+/* Reset */
 * {
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
 }
+
 :root {
   --white: #ffffff;
   --green: #089808;
@@ -13,17 +15,20 @@
   --brown: #5f3737;
 }
 
+/* Body */
 body {
   width: 99vw;
   height: 100vh;
   padding: 24px;
+  background-color: var(--white);
 }
 
+/* Header */
 header {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin: 16px 0px;
+  margin: 16px 0;
 }
 
 header img {
@@ -41,17 +46,15 @@ header img {
   font-size: 22px;
 }
 
-/* section1 */
-
+/* Status Section */
 .status-container {
   width: 100%;
-  height: 340px;
-  margin: 40px 0px;
+  height: auto;
+  margin: 40px 0;
   gap: 10px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: space-between;
 }
 
 .card {
@@ -63,6 +66,7 @@ header img {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  min-height: 160px;
 }
 
 .card img {
@@ -87,10 +91,11 @@ header img {
 
 .battery {
   height: 100%;
-  width: 59%;
+  width: 85%; /* Change dynamically if needed */
   background-color: var(--green);
   border-radius: 50px;
 }
+
 .circle-container {
   width: 100%;
   display: flex;
@@ -101,7 +106,7 @@ header img {
   height: 70px;
   width: 70px;
   border: 5px solid var(--green);
-  border-radius: 50px;
+  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -120,19 +125,21 @@ header img {
   background-image: linear-gradient(to bottom right, rgb(225, 234, 251), white);
 }
 
-/* Section2 */
-
+/* Controls */
 .controls {
   width: 100%;
-  margin: 40px 0px;
+  margin: 40px 0;
 }
 
 .control-container {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin: 16px 0px;
+  margin: 16px 0;
+  flex-wrap: wrap;
+  gap: 10px;
 }
+
 .controlbox {
   width: 31%;
   height: 110px;
@@ -144,102 +151,101 @@ header img {
   text-align: center;
   justify-content: space-evenly;
   padding: 10px;
+  cursor: pointer;
 }
 
 .controlbox img {
   width: 28px;
-  color: var(--white);
 }
 
 .cb1 {
   background-color: var(--green);
-  position: relative;
 }
 .cb2 {
   background-color: var(--orange);
-  position: relative;
 }
 .cb3 {
-  position: relative;
   background-color: var(--brown);
 }
 
-/* Button Status */
+/* Button Status Label */
 .off {
   color: var(--white);
   background-color: rgb(109, 109, 109);
-  position: absolute;
-  top: 8px;
-  right: 8px;
+  position: relative;
   padding: 2px 12px;
-  border: none;
   border-radius: 50px;
   font-size: 12px;
   text-align: center;
-  border: none;
 }
 
-/* section3 */
-
+/* Schedule */
 .schedulecontainer {
   width: 100%;
-  margin: 40px 0px;
+  margin: 40px 0;
 }
 
 .schedulebox {
   height: 40px;
   width: 98%;
-  margin: 10px 0px;
+  margin: 10px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 .calender {
   display: flex;
   align-items: center;
   gap: 5px;
 }
+
 .calender img {
   width: 28px;
 }
 .calender p {
   color: var(--green);
 }
+
 .time-container {
   background-color: rgb(240, 248, 248);
   width: 100%;
   border-radius: 16px;
   padding: 16px;
 }
+
 .on-time {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .clock {
   display: flex;
   gap: 10px;
   height: 40px;
   align-items: center;
 }
+
 .line-container {
   width: 100%;
   display: flex;
   justify-content: center;
-  margin: 10px 0px;
+  margin: 10px 0;
 }
+
 .line {
   width: 80%;
   height: 2px;
   background-color: gray;
 }
+
 .cl {
   width: 28px;
 }
 
-/* Section4 */
-
+/* Alerts */
 .alerts {
   width: 100%;
   padding-bottom: 80px;
@@ -252,7 +258,7 @@ header img {
   display: flex;
   align-items: center;
   gap: 16px;
-  margin: 16px 0px;
+  margin: 16px 0;
 }
 
 .ab1 {

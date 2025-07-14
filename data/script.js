@@ -1,34 +1,55 @@
 "use strict";
+
 let lightOn = false;
+let waterOn = false;
+let feedOn = false;
 
 const ws = new WebSocket(`ws://${location.host}/ws`);
 
-function changeState(state) {
-  state ? ws.send("OFF") : ws.send("ON");
-
-  document.getElementById("lightStatus").innerHTML = state ? "off" : "on";
-
-  document.getElementById("lightBtn").style.backgroundColor = state
-    ? "#5f3737"
-    : "#72a8ce";
-
-  lightOn = state ? false : true;
-
-  document.getElementById("lightStatusText").innerHTML = state ? "OFF" : "ON";
-  document.getElementById("lightStatusContainer").style.backgroundImage = state
+function changeState(state, type) {
+  const nextState = !state;
+  const isOff = state;
+  const statusText = isOff ? "off" : "on";
+  const statusValue = isOff ? "OFF" : "ON";
+  const backgroundColor = isOff ? "#5f3737" : "#72a8ce";
+  const backgroundImage = isOff
     ? "linear-gradient(to bottom right, #e1eafb, white)"
-    : "linear-gradient(to bottom right,#72a8ce, white";
+    : "linear-gradient(to bottom right, #72a8ce, white)";
+
+  // Send WebSocket command
+  if (type === "light") {
+    ws.send(nextState ? "ON" : "OFF");
+    lightOn = nextState;
+  } else if (type === "water") {
+    ws.send(nextState ? "FILL" : "DRAIN");
+    waterOn = nextState;
+  } else if (type === "feed") {
+    ws.send(nextState ? "FEED" : "STOP_FEED");
+    feedOn = nextState;
+  }
+
+  // Update UI safely
+  const statusEl = document.getElementById(`${type}Status`);
+  const statusTextEl = document.getElementById(`${type}StatusText`);
+  const statusContainerEl = document.getElementById(`${type}StatusContainer`);
+  const btnEl = document.getElementById(`${type}Btn`);
+
+  if (statusEl) statusEl.innerHTML = statusText;
+  if (statusTextEl) statusTextEl.innerHTML = statusValue;
+  if (btnEl) btnEl.style.backgroundColor = backgroundColor;
+  if (statusContainerEl)
+    statusContainerEl.style.backgroundImage = backgroundImage;
 }
 
-document.getElementById("lightBtn").onclick = () => {
-  if (lightOn) {
-    changeState(lightOn);
-  } else {
-    changeState(lightOn);
-  }
-};
+// Button click handlers
+document.getElementById("lightBtn").onclick = () =>
+  changeState(lightOn, "light");
+document.getElementById("waterBtn").onclick = () =>
+  changeState(waterOn, "water");
+document.getElementById("feedBtn").onclick = () => changeState(feedOn, "feed");
 
-// Recieving from ultrasonic sensor
-ws.onmessage = (even) => {
-  document.getElementById("waterLevel").innerHTML = even.data + "%";
+// Listen for water level from sensor
+ws.onmessage = (event) => {
+  const levelEl = document.getElementById("waterLevel");
+  if (levelEl) levelEl.innerHTML = event.data + "%";
 };
