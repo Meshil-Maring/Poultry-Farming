@@ -1,5 +1,5 @@
-#ifndef RTC_SETUP_H
-#define RTC_SETUP_H
+#ifndef RTC_H
+#define RTC_H
 
 #include <RTClib.h>
 

@@ -4,12 +4,12 @@
 #include <AccelStepper.h>
 
 // Define pins
-#define IN1 14
-#define IN2 27
-#define IN3 26
-#define IN4 25
+#define IN1 32
+#define IN2 33
+#define IN3 25
+#define IN4 26
 
-// Create AccelStepper object in HALF4WIRE mode
+// Declare the stepper object (definition must be in .cpp file)
 extern AccelStepper stepper;
 
 void setupStepperMotor();

@@ -4,7 +4,7 @@
 #include <SPIFFS.h>
 #include "webserver.h"
 
-#define LED_PIN 21
+#define LED_PIN 14
 
 AsyncWebServer server(80);
 AsyncWebSocket ws("/ws");

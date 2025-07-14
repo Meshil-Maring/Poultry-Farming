@@ -1,25 +1,17 @@
 #include <Arduino.h>
-#include "display.h"
-#include "button.h"
-#include "solar.h"
-#include "rtc.h"
-#include "button_action.h"
+#include "servo_motor.h"
+#include "webserver.h"
 
 void setup() {
   Serial.begin(115200);
-  initDisplay();
-  initButtons();
-  initSolar();
-  rtc_init();
+  setupServo();  
+  setupWebServer();
 }
 
 void loop() {
-  handleButtonScroll();  
+  // setServoAngle(0);
+  // delay(1000);
 
-  if (!isButtonScrollActive()) {
-    bool charging = isSunlightAvailable();
-    showMessage(charging ? "Charging Mode: ON" : "Charging Mode: OFF");
-    displayTimeOnScreen();
-  }
-  delay(100);
+  // setServoAngle(120);
+  // delay(1000);
 }
