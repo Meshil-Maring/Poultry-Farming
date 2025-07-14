@@ -50,6 +50,6 @@ document.getElementById("feedBtn").onclick = () => changeState(feedOn, "feed");
 
 // Listen for water level from sensor
 ws.onmessage = (event) => {
-  const levelEl = document.getElementById("waterLevel");
-  if (levelEl) levelEl.innerHTML = event.data + "%";
+  const levelEl = document.getElementById("waterLvl");
+  // if (levelEl) levelEl.innerHTML = event.data + "%";
 };
