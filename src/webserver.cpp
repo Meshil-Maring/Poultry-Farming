@@ -5,6 +5,7 @@
 #include "webserver.h"
 #include "servo_motor.h"
 #include "stepperMotor.h"
+#include "rtc.h"
 
 #define LED_PIN 21
 #define WATER_PIN 19
@@ -87,6 +88,16 @@ void setupWebServer()
     Serial.println("SPIFFS mount failed.");
     return;
   }
+
+  // Serve current time from RTC
+  server.on("/api/time", HTTP_GET, [](AsyncWebServerRequest *request)
+            {
+    DateTime now = rtc.now();
+    char timeStr[9];
+    snprintf(timeStr, sizeof(timeStr), "%02d:%02d:%02d",
+             now.hour(), now.minute(), now.second());
+    String json = "{\"time\": \"" + String(timeStr) + "\"}";
+    request->send(200, "application/json", json); });
 
   server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
   ws.onEvent(onWebSocketEvent);

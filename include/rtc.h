@@ -5,7 +5,6 @@
 
 extern RTC_DS3231 rtc;
 
-void rtc_init();
-void displayTimeOnScreen();
-
+void setupRTC();
+DateTime getRTCTime(); // Optional wrapper
 #endif
