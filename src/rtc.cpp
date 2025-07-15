@@ -1,11 +1,11 @@
 #include "rtc.h"
 #include <Wire.h>
-
 RTC_DS3231 rtc;
 
 void setupRTC()
 {
-  Wire.begin(0, 2); // SDA, SCL
+  Wire.begin(0, 2); // SDA, SCL for ESP32
+
   if (!rtc.begin())
   {
     Serial.println("Couldn't find RTC");
@@ -16,7 +16,7 @@ void setupRTC()
   if (rtc.lostPower())
   {
     Serial.println("RTC lost power, setting time.");
-    rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+    rtc.adjust(DateTime(F(__DATE__), F(__TIME__))); // Set compile time
   }
 }
 

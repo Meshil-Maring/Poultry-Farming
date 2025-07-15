@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chick Feeder</title>
-    <link rel="stylesheet" href="style.css?v=18" />
+    <link rel="stylesheet" href="style.css?v=38" />
   </head>
   <body style="background-color: white">
     <header>
@@ -96,7 +96,7 @@
       <!-- LIGHT SCHEDULE -->
       <div class="schedulebox">
         <p class="font1">Light Schedule</p>
-        <div class="calender" onclick="toggleEdit(this)">
+        <div class="calender" onclick="toggleEdit(this)" data-type="light">
           <img src="assets/icons/calender.svg" alt="Edit" />
           <p>Edit</p>
         </div>
@@ -122,7 +122,7 @@
       <!-- FEED SCHEDULE -->
       <div class="schedulebox">
         <p class="font1">Feeding Schedule</p>
-        <div class="calender" onclick="toggleEdit(this)">
+        <div class="calender" onclick="toggleEdit(this)" data-type="feed">
           <img src="assets/icons/calender.svg" alt="Edit" />
           <p>Edit</p>
         </div>
@@ -148,7 +148,7 @@
       <!-- WATER SCHEDULE -->
       <div class="schedulebox">
         <p class="font1">Water Schedule</p>
-        <div class="calender" onclick="toggleEdit(this)">
+        <div class="calender" onclick="toggleEdit(this)" data-type="water">
           <img src="assets/icons/calender.svg" alt="Edit" />
           <p>Edit</p>
         </div>
@@ -174,7 +174,7 @@
       <!-- CLEANING SCHEDULE -->
       <div class="schedulebox">
         <p class="font1">Cleaning Schedule</p>
-        <div class="calender" onclick="toggleEdit(this)">
+        <div class="calender" onclick="toggleEdit(this)" data-type="clean">
           <img src="assets/icons/calender.svg" alt="Edit" />
           <p>Edit</p>
         </div>
@@ -220,9 +220,9 @@
     </section>
 
     <!-- Version Info -->
-    <p>JavaScript: 17</p>
+    <p>JavaScript: v=38</p>
 
     <!-- JavaScript File -->
-    <script src="script.js?v=18"></script>
+    <script src="script.js?v=38"></script>
   </body>
 </html>

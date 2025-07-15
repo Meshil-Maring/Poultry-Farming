@@ -11,10 +11,10 @@ void setup()
   Serial.begin(115200);
   pinMode(LIMIT_SWITCH_PIN, INPUT_PULLUP);
 
+  setupWebServer();
+  setupRTC();
   setupServo();
   setupStepperMotor();
-  setupRTC();
-  setupWebServer();
 }
 
 void loop()
