@@ -7,6 +7,7 @@
 #include "stepperMotor.h"
 #include "rtc.h"
 
+extern AsyncWebSocket ws;
 #define LED_PIN 21
 #define WATER_PIN 19
 
@@ -53,7 +54,7 @@ void onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client,
     }
     else if (msg == "FEED")
     {
-      setServoAngle(120);
+      setServoAngle(110);
     }
     else if (msg == "STOP_FEED")
     {

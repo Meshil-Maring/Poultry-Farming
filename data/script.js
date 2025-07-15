@@ -8,6 +8,46 @@ let lastCheckedMinute = -1;
 
 const ws = new WebSocket(`ws://${location.host}/ws`);
 
+ws.onopen = () => console.log("WebSocket connected");
+
+ws.onerror = (err) => console.error("WebSocket error:", err);
+
+ws.onclose = () => {
+  console.warn("WebSocket closed, retrying in 2s...");
+  setTimeout(() => location.reload(), 2000);
+};
+
+ws.onmessage = (event) => {
+  const msg = event.data;
+  console.log("WebSocket message:", msg);
+
+  const waterDisplay = document.getElementById("waterPercentage");
+  if (!waterDisplay) {
+    console.error("waterPercentage element not found");
+    return;
+  }
+
+  if (msg === "error") {
+    waterDisplay.textContent = "Error";
+    waterDisplay.style.color = "red";
+  } else {
+    const percentage = parseInt(msg);
+    if (!isNaN(percentage)) {
+      waterDisplay.textContent = `${percentage}%`;
+      waterDisplay.style.color = "black";
+    }
+  }
+};
+
+function safeSend(message) {
+  if (ws.readyState === WebSocket.OPEN) {
+    ws.send(message);
+  } else {
+    console.warn("WebSocket not open. Retrying in 500ms...");
+    setTimeout(() => safeSend(message), 500);
+  }
+}
+
 function changeState(state, type) {
   const nextState = !state;
   console.log(`[${type}] Changing state to:`, nextState);
@@ -15,28 +55,28 @@ function changeState(state, type) {
   let btn, statusText, statusCard, statusCardText;
 
   if (type === "light") {
-    ws.send(nextState ? "ON" : "OFF");
+    safeSend(nextState ? "ON" : "OFF");
     lightOn = nextState;
     btn = document.getElementById("lightBtn");
     statusText = document.getElementById("lightStatus");
     statusCard = document.getElementById("lightStatusContainer");
     statusCardText = document.getElementById("lightStatusText");
   } else if (type === "water") {
-    ws.send(nextState ? "FILL" : "DRAIN");
+    safeSend(nextState ? "FILL" : "DRAIN");
     waterOn = nextState;
     btn = document.getElementById("waterBtn");
     statusText = document.getElementById("waterStatus");
     statusCard = document.getElementById("waterStatusContainer");
     statusCardText = document.getElementById("waterStatusText");
   } else if (type === "feed") {
-    ws.send(nextState ? "FEED" : "STOP_FEED");
+    safeSend(nextState ? "FEED" : "STOP_FEED");
     feedOn = nextState;
     btn = document.getElementById("feedBtn");
     statusText = document.getElementById("feedStatus");
     statusCard = document.getElementById("feedStatusContainer");
     statusCardText = document.getElementById("feedStatusText");
   } else if (type === "clean") {
-    ws.send(nextState ? "CLEAN" : "STOP_CLEAN");
+    safeSend(nextState ? "CLEAN" : "STOP_CLEAN");
     cleanOn = nextState;
     btn = document.getElementById("cleanBtn");
     statusText = document.getElementById("cleanStatus");
@@ -75,14 +115,6 @@ function updateStatusSectionBackground() {
   section.style.backgroundColor = lightOn ? "#e0ffe0" : "#ffffff";
 }
 
-document.getElementById("lightBtn").onclick = () =>
-  changeState(lightOn, "light");
-document.getElementById("waterBtn").onclick = () =>
-  changeState(waterOn, "water");
-document.getElementById("feedBtn").onclick = () => changeState(feedOn, "feed");
-document.getElementById("cleanBtn").onclick = () =>
-  changeState(cleanOn, "clean");
-
 async function getRTCTime() {
   try {
     const res = await fetch("/api/time");
@@ -98,15 +130,13 @@ async function getRTCTime() {
 function timeToMinutes(timeStr) {
   if (!timeStr) return -1;
 
-  // Handle both "HH:MM" format and time input value format
   const timeParts = timeStr.includes(":")
     ? timeStr.split(":")
     : [timeStr.substr(0, 2), timeStr.substr(2, 2)];
   const hour = parseInt(timeParts[0], 10);
   const minute = parseInt(timeParts[1], 10);
 
-  if (isNaN(hour)) return -1;
-  if (isNaN(minute)) return hour * 60;
+  if (isNaN(hour) || isNaN(minute)) return -1;
 
   return hour * 60 + minute;
 }
@@ -152,8 +182,19 @@ async function checkScheduledTasks() {
   checkAndToggle("clean", "cleanStartTime", "cleanStopTime");
 }
 
-// Check schedules every 10 seconds
-setInterval(checkScheduledTasks, 10000);
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("lightBtn").onclick = () =>
+    changeState(lightOn, "light");
+  document.getElementById("waterBtn").onclick = () =>
+    changeState(waterOn, "water");
+  document.getElementById("feedBtn").onclick = () =>
+    changeState(feedOn, "feed");
+  document.getElementById("cleanBtn").onclick = () =>
+    changeState(cleanOn, "clean");
+
+  checkScheduledTasks();
+  setInterval(checkScheduledTasks, 10000);
+});
 
 function toggleEdit(element) {
   const type = element.getAttribute("data-type");
@@ -184,4 +225,49 @@ function toggleEdit(element) {
 
   const textElement = element.querySelector("p");
   if (textElement) textElement.textContent = isDisabled ? "Save" : "Edit";
+}
+
+let ws;
+
+function connectWebSocket() {
+  ws = new WebSocket(`ws://${location.host}/ws`);
+
+  ws.onopen = () => console.log("WebSocket connected");
+
+  ws.onerror = (err) => console.error("WebSocket error:", err);
+
+  ws.onclose = () => {
+    console.warn("WebSocket closed, retrying in 2s...");
+    setTimeout(connectWebSocket, 2000);
+  };
+
+  ws.onmessage = (event) => {
+    const msg = event.data;
+    console.log("WebSocket message:", msg);
+
+    const waterDisplay = document.getElementById("waterPercentage");
+    if (!waterDisplay) return;
+
+    if (msg === "error") {
+      waterDisplay.textContent = "Error";
+      waterDisplay.style.color = "red";
+    } else if (!isNaN(parseInt(msg))) {
+      const percentage = parseInt(msg);
+      waterDisplay.textContent = `${percentage}%`;
+      waterDisplay.style.color = "black";
+    } else {
+      console.log("Other WebSocket message:", msg);
+    }
+  };
+}
+
+connectWebSocket();
+
+function safeSend(message) {
+  if (ws.readyState === WebSocket.OPEN) {
+    ws.send(message);
+  } else {
+    console.warn("WebSocket not open. Retrying in 500ms...");
+    setTimeout(() => safeSend(message), 500);
+  }
 }

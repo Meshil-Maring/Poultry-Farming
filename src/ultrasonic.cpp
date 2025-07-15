@@ -3,23 +3,50 @@
 
 extern AsyncWebSocket ws;
 
-const int trigPin = 22;
-const int echoPin = 23;
+const int trigPin = 12;
+const int echoPin = 13;
 
-void setupUltrasonic() {
+// Define your known tank range in cm
+const float maxDistance = 18.2;
+const float minDistance = 2.7;
+
+void setupUltrasonic()
+{
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
 }
+unsigned long lastUpdate = 0;
+const unsigned long updateInterval = 1000; // Update every 1 second
 
-void updateUltrasonic() {
+void updateUltrasonic()
+{
+  unsigned long now = millis();
+  if (now - lastUpdate < updateInterval)
+    return;
+
+  lastUpdate = now;
+
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
 
-  long duration = pulseIn(echoPin, HIGH);
+  long duration = pulseIn(echoPin, HIGH, 30000); // 30ms timeout
+
+  if (duration == 0)
+  {
+    Serial.println("Ultrasonic: No echo received");
+    if (ws.count() > 0)
+      ws.textAll("error");
+    return;
+  }
+
   float distance = duration * 0.034 / 2;
-  int percentage = ((18.2 - distance) * 100) / 15.5;
-  ws.textAll(String(percentage));
+  distance = constrain(distance, minDistance, maxDistance);
+  int percentage = round(((maxDistance - distance) * 100) / (maxDistance - minDistance));
+
+  Serial.printf("Ultrasonic: Distance=%.2f cm, Percentage=%d%%\n", distance, percentage);
+  if (ws.count() > 0)
+    ws.textAll(String(percentage));
 }
